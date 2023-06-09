@@ -22,7 +22,7 @@ export async function main(ns) {
     }
     ns.scp(['get_started.js', 'generic.js', 'target_all.js'], host);
     if(ns.hasRootAccess(host) == false){
-      available_scripts.forEach((a) => {HACK_FUNCTION_MAP[a]();})
+      available_scripts.forEach((a) => {HACK_FUNCTION_MAP[a](host);})
       if(ns.getServerNumPortsRequired(host) <= hack_level){
         ns.nuke(host);
       }

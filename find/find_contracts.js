@@ -6,18 +6,25 @@ export async function main(ns) {
   ns.disableLog("scan");
   ns.clearLog();
   var contracts =  await find_contracts(ns, 'home', 'home','');
-  ns.print("Contracts found: \n"+ contracts.join('\n'));
+  ns.print("Contracts found: \n"+ contracts.map((a) => {return a.str;}).join('\n'));
   ns.tail();
 }
 
-async function find_contracts(ns, host, origin, route) {
+/** @param {NS} ns */
+export async function find_contracts(ns, host, origin, route) {
   var contracts = [];
   route = route+'=>'+host
-  var local_files = await ns.ls(host, '.cct'); 
+  var local_files = ns.ls(host, '.cct'); 
   if (local_files.length > 0) {
     for(var file of local_files){
-      var type = ns.codingcontract.getContractType(file, host);
-      contracts.push("Host: "+route+", Contract: "+file+", Type: "+type);
+      var type = await ns.codingcontract.getContractType(file, host);
+      var contract = {
+        'str': "Host: "+route+", Contract: "+file+", Type: "+type,
+        'filename': file,
+        'hostname': host,
+        'type': type
+      }
+      contracts.push(contract);
     }
   }
   var local = await ns.scan(host);

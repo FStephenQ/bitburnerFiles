@@ -11,12 +11,17 @@ be made then the answer should be 0. Note that you have to buy the stock before 
 */
 export async function main(ns) {
   var input = [184,60,36,65,93,54,159,191,20,149,73,142,88,182,111,134,87,150,13,75,162,145];
+  var max_profit = stocks_1(ns, input);
+  ns.tail();
+  ns.print(max_profit);
+}
+
+export function stocks_1(ns, input){
   var max_profit = 0;
   for(var i = 0; i < input.length; i++){
     for(var p = i; p < input.length; p++){
       if(max_profit < (input[p]-input[i])) max_profit = input[p]-input[i];
     }
   }
-  ns.tail();
-  ns.print(max_profit);
+  return max_profit;
 }

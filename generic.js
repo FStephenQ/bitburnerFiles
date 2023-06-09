@@ -5,7 +5,11 @@ export async function main(ns) {
   await reduce_security_level(ns, HOST);
   while (true) {
     await grow_money(ns, HOST);
-    while(await ns.hack(HOST) == 0);
+    while(await ns.hack(HOST) == 0){
+      if(ns.hackAnalyzeChance(HOST) < .1){
+        break;
+      }
+    };
     await reduce_security_level(ns, HOST);
   }
 }

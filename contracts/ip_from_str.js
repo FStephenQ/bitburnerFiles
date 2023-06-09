@@ -30,7 +30,6 @@ export function find_valid_ip(ns, input){
             input.slice(p, q),
             input.slice(d,)
           ];
-          ns.print(candidate);
           if(candidate.join('').length == input.length && is_valid_ip(ns, candidate)){
             ret.push(candidate.join('.'));
           }
@@ -39,21 +38,19 @@ export function find_valid_ip(ns, input){
     }
   }
   ns.print(ret);
+  return ret;
 }
 
 function is_valid_ip(ns, candidate){
   for(var segment of candidate){
     try{
       if(segment[0] == '0'){
-        ns.print("Starts with 0: "+segment);
         return false;
       }
       if(segment.length < 1){
-        ns.print("Segment too short: "+segment);
         return false;
       }
       if(parseInt(segment) > 255){
-        ns.print("Segment value too high: "+segment);
         return false;
       }
     }

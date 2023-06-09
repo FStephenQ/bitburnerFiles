@@ -29,7 +29,6 @@ export async function main(ns) {
 }
 
 export function compression_two(ns, compressed){
-    ns.tail();
     let output = "";
     let chunk_type = 1;
     for (var i = 0; i < compressed.length; i++) {
@@ -49,27 +48,20 @@ export function compression_two(ns, compressed){
         output = process_chunk(ns, output, chunk, chunk_type);
         chunk_type = 2;
       }
-      ns.print("Chunk: " + chunk);
-      ns.print("Output: " + output);
     }
-    ns.print(output);
+    return output;
 }
 
 function process_chunk(ns, previous_string, chunk, chunk_type) {
   let ret = previous_string;
-  ns.print(chunk);
   if (chunk_type == 2) {
-    ns.print(chunk);
     let length = parseInt(chunk[0]);
     let unit = parseInt(chunk[1]);
-    ns.print("Length: " + length);
-    ns.print("Unit: " + unit);
     for (var j = 0; j < length; j++) {
       ret += ret[ret.length - unit];
     }
   } else {
     ret = ret + chunk;
   }
-  ns.print("Ret: " + ret);
   return ret;
 }
