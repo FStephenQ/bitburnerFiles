@@ -17,6 +17,12 @@ Examples:
     */
 export async function main(ns) {
   var input = 'ggg33FFyyGGGGGGGGGKeFPPzzhLLLLLLLLLOOhVV8888FzkMMkpbbppppppp';
+  var output = compression_one(ns, input);
+  ns.tail();
+  ns.print(output);
+}
+
+export function compression_one(ns, input){
   var output = '';
   var start = 0;
   for(var i =0; i<input.length;i++){
@@ -38,6 +44,5 @@ export async function main(ns) {
       start = i+1;
     }
   }
-  ns.tail();
-  ns.print(output);
+  return output;
 }

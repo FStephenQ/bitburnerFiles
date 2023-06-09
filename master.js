@@ -9,13 +9,6 @@ function wout(ns, output) {
 /** @param {NS} ns */
 export async function main(ns) {
     var previous_hacked_length = 0;
-    var extant_servers = ns.getPurchasedServers().filter((a) => {
-        return a.indexOf("generic") >= 0;
-    });
-    for (var s of extant_servers) {
-        ns.killall(s);
-        ns.deleteServer(s);
-    }
     while (true) {
         ns.write("master.log.txt", "", "w");
         ns.run("hack_all.js");
@@ -26,10 +19,7 @@ export async function main(ns) {
             await ns.sleep(15 * 1000 * 60);
         } else {
             hacked = hacked.sort((a, b) => b.moneyMax - a.moneyMax);
-            if (
-                ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2 ||
-                hacked.length >= ns.getPurchasedServerLimit() - 2
-            ) {
+            if (ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2) {
                 wout(ns, "Too many servers. Deleting");
                 for (var del of hacked.slice(ns.getPurchasedServerLimit() - 3)) {
                     if (contains(ns.getPurchasedServers(), `generic-${del.hostname}`)) {
@@ -38,6 +28,9 @@ export async function main(ns) {
                         ns.deleteServer(del.hostname);
                     }
                 }
+            }
+            if (hacked.length >= ns.getPurchasedServerLimit() - 2) {
+                wout(ns, `Too many hacked servers; getting top ${ns.getPurchasedServerLimit()-2}`);
                 hacked = hacked.slice(0, ns.getPurchasedServerLimit() - 2);
             }
             for (var serv of hacked) {
