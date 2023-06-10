@@ -3,11 +3,19 @@ export async function main(ns) {
   var arr = [134,159,63,154,66,44,4,79,109,91,29,13,19,146,39,119,134,24,190,105];
   var last = 1;
   var previous_price = 91;
+  
+  ns.tail()
+  ns.print(profit);
+}
+
+export function stocks_2(ns, arr){
   var profit = 0;
-  var stock_held = true;
   for (let p = 1; p < arr.length; ++p) {
 				profit += Math.max(arr[p] - arr[p - 1], 0)
 	}
+  return profit;
+}
+
   /*for (var i = 2; i < arr.length; i++) {
     if (arr[last] > arr[i] && stock_held) {
       ns.print("ar last: " + arr[last]);
@@ -28,9 +36,6 @@ export async function main(ns) {
     }
     last = i;
   }*/
-  ns.tail()
-  ns.print(profit);
-}
   /*var banned = []
 var max_profit = 0;
 while (banned.length < arr.length) {

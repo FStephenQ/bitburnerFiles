@@ -1,6 +1,6 @@
 /// <reference path="../NetscriptDefinitions.d.ts"/>
 
-import { contains } from "../common";
+import { contains } from "/common";
 
 /** @param {NS} ns */
 const BLACKLIST = ["omega-net"]
@@ -21,7 +21,7 @@ async function get_money(ns, host, origin) {
     var result = await get_money(ns, h, host);
     var cash = result.local_highest_money;
     var richest = result.local_highest_name;
-    if (cash > local_money && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()) {
+    if (cash > local_money && ns.hasRootAccess(h)) {
       local_money = cash;
       local_richest = richest;
     }

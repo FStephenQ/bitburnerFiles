@@ -8,12 +8,14 @@ import { stocks_1 } from "/contracts/stocks1";
 import { merge_overlapping_intervals } from "/contracts/merge_overlapping_intervals";
 import { largest_prime_factor } from "/contracts/prime_factor";
 import { compression_one } from "/contracts/compression1";
+import { stocks_2 } from "/contracts/stocks2";
 
 const SOLVABLE_CONTRACTS_MAP = {
     'Compression I: RLE Compression': compression_one,
     'Compression II: LZ Decompression': compression_two,
     'Generate IP Addresses': find_valid_ip,
     'Algorithmic Stock Trader I': stocks_1,
+    'Algorithmic Stock Trader II': stocks_2,
     'Merge Overlapping Intervals': merge_overlapping_intervals,
     'Find Largest Prime Factor': largest_prime_factor
 }

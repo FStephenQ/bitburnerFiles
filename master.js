@@ -1,6 +1,6 @@
 /// <reference path="NetscriptDefinitions.d.ts"/>
 
-import { get_hacked, contains } from "./common";
+import { get_hacked, contains } from "/common";
 
 function wout(ns, output) {
     ns.write("master.log.txt", output + "\n", "a");
@@ -21,11 +21,12 @@ export async function main(ns) {
             hacked = hacked.sort((a, b) => b.moneyMax - a.moneyMax);
             if (ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2) {
                 wout(ns, "Too many servers. Deleting");
+                ns.getScriptExpGain()
                 for (var del of hacked.slice(ns.getPurchasedServerLimit() - 3)) {
                     if (contains(ns.getPurchasedServers(), `generic-${del.hostname}`)) {
                         wout(ns, "Deleting generic-" + del.hostname);
-                        ns.killall(`generic-${del.hostname}`);
-                        ns.deleteServer(del.hostname);
+                        await ns.killall(`generic-${del.hostname}`);
+                        ns.deleteServer(`generic-${del.hostname}`);
                     }
                 }
             }
