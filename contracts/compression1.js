@@ -28,7 +28,7 @@ export function compression_one(ns, input){
   for(var i =0; i<input.length;i++){
     if(input[i+1] != input[i]){
       var length = (i-start)+1;
-      if(length > 10){
+      if(length >= 10){
         var nines = Math.floor(length / 9);
         for(var p = 0; p < nines; p++){
           output += 9+''+input[i];
