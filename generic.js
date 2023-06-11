@@ -5,18 +5,15 @@ export async function main(ns) {
   await reduce_security_level(ns, HOST);
   while (true) {
     await grow_money(ns, HOST);
-    while(await ns.hack(HOST) == 0){
-      if(ns.hackAnalyzeChance(HOST) < .1){
-        break;
-      }
-    };
+    await reduce_security_level(ns, HOST);
+    while(await ns.hack(HOST) == 0);
     await reduce_security_level(ns, HOST);
   }
 }
 
 async function reduce_security_level(ns, HOST){
   var cur_sec_level = ns.getServerSecurityLevel(HOST);
-  const min_sec_level = ns.getServerMinSecurityLevel(HOST);
+  const min_sec_level = ns.getServerMinSecurityLevel(HOST)*1.25;
   while (cur_sec_level > min_sec_level) {
     await ns.weaken(HOST);
     cur_sec_level = ns.getServerSecurityLevel(HOST);
