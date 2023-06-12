@@ -4,6 +4,7 @@
 export async function main(ns) {
   ns.tail();
   var result = await get_money(ns, 'home', 'home');
+  ns.clearLog();
   ns.print(result);
 }
 

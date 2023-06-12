@@ -1,33 +1,33 @@
 /// <reference path="../NetscriptDefinitions.d.ts"/>
 
-import { contains } from "/common";
-
 /** @param {NS} ns */
-const BLACKLIST = ["omega-net"]
 export async function main(ns) {
   ns.tail();
   var result = await get_money(ns, 'home', 'home');
-  ns.print(result);
+  ns.clearLog();
+  ns.print(`Highest growth value server is ${result.highest_growth_name}, with a value of ${ns.formatNumber(result.highest_growth_value)}`);
+  ns.print(`This server currently has $${ns.formatNumber(ns.getServerMoneyAvailable(result.highest_growth_name))} available, and a security value of ${ns.formatNumber(ns.getServerSecurityLevel(result.highest_growth_name))}`);
+  ns.print(`Weaken time: ${ns.tFormat(ns.getWeakenTime(result.highest_growth_name))}`);
+  ns.print(`Grow time: ${ns.tFormat(ns.getGrowTime(result.highest_growth_name))}`);
+  ns.print(`Hack time: ${ns.tFormat(ns.getHackTime(result.highest_growth_name))}`);
 }
 
 async function get_money(ns, host, origin) {
-  var local_money = (host == origin || contains(BLACKLIST, host)) ? 0: (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
-  var local_richest = (host == origin || contains(BLACKLIST, host)) ? '': host;
-  ns.print(host);
-  ns.print(local_richest);
+  var local_growth = (host == origin) ? 0: (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
+  var local_highest_growth = (host == origin) ? '': host;
   var local = ns.scan(host);
   for (var h of local) {
-    if (h == origin || contains(BLACKLIST, h)) continue;
+    if (h == origin) continue;
     var result = await get_money(ns, h, host);
-    var cash = result.local_highest_money;
-    var richest = result.local_highest_name;
-    if (cash > local_money && ns.hasRootAccess(h)) {
-      local_money = cash;
-      local_richest = richest;
+    var cash = result.highest_growth_value;
+    var richest = result.highest_growth_name;
+    if (cash > local_growth && ns.hasRootAccess(h)) {
+      local_growth = cash;
+      local_highest_growth = richest;
     }
   }
   return {
-    local_highest_money: local_money,
-    local_highest_name: local_richest
+    highest_growth_value: local_growth,
+    highest_growth_name: local_highest_growth
   }
 }

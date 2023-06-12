@@ -19,6 +19,10 @@ export async function main(ns) {
             await ns.sleep(15 * 1000 * 60);
         } else {
             hacked = hacked.sort((a, b) => b.moneyMax - a.moneyMax);
+            if(ns.fileExists('.clean_home')){
+                ns.scriptKill('generic.js', 'home');
+                ns.exec('fill_all.js', 'home', 1, 'generic.js', hacked[0].hostname);
+            }
             if (ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2) {
                 wout(ns, "Too many servers. Deleting");
                 ns.getScriptExpGain()
@@ -38,9 +42,9 @@ export async function main(ns) {
                 await buy_kill_server(ns, serv);
                 wout(ns, "-------------------");
             }
-            wout(ns, "All possible kill servers configured. Sleeping for 15 minutes");
+            wout(ns, "All possible kill servers configured. Sleeping.");
             previous_hacked_length = hacked.length;
-            await ns.sleep(15 * 1000 * 60);
+            await ns.sleep(Math.max(15 * 1000 * 60, ns.getWeakenTime(hacked[0].hostname)));
         }
     }
 }
