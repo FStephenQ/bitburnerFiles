@@ -9,6 +9,7 @@ function wout(ns, output) {
 /** @param {NS} ns */
 export async function main(ns) {
     var previous_hacked_length = 0;
+    var highest_value_host = '';
     while (true) {
         ns.write("master.log.txt", "", "w");
         ns.run("hack_all.js");
@@ -19,9 +20,12 @@ export async function main(ns) {
             await ns.sleep(15 * 1000 * 60);
         } else {
             hacked = hacked.sort((a, b) => b.moneyMax - a.moneyMax);
-            if(ns.fileExists('.clean_home')){
+            if(ns.fileExists('clean_home.txt')){
                 ns.scriptKill('generic.js', 'home');
+                ns.run('contracts/solve_contracts.js');
+                await ns.sleep(1000);
                 ns.exec('fill_all.js', 'home', 1, 'generic.js', hacked[0].hostname);
+                ns.exec('target_all.js', 'home', 1, hacked[0].hostname);
             }
             if (ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2) {
                 wout(ns, "Too many servers. Deleting");

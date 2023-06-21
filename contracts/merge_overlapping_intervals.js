@@ -26,10 +26,11 @@ export function merge_overlapping_intervals(ns, input){
   var ret = [];
   var intervals = [];
   intervals = input.sort((a, b) => {return a[0]-b[0]});
+  ns.print(intervals);
   var largest = intervals[0][1];
   var start = intervals[0][0];
   for(var i of intervals){
-    if(i[0] < largest){
+    if(i[0] <= largest){
       if(i[1] > largest){
         largest = i[1];
       }

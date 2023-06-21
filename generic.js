@@ -18,13 +18,18 @@ export async function main(ns) {
 async function hack_away(ns, HOST){
   var money_available = ns.getServerMoneyAvailable(HOST);
   while(money_available > 0){
-    while(await ns.hack(HOST) == 0);
+    while(await ns.hack(HOST) == 0){
+      if(ns.getServerSecurityLevel(HOST) >= 100){
+        return;
+      }
+    };
   }
 }
 
 /** @param {NS} ns */
 async function reduce_security_level(ns, HOST){
   var cur_sec_level = ns.getServerSecurityLevel(HOST);
+  if(cur_sec_level < 100) return;
   const min_sec_level = ns.getServerMinSecurityLevel(HOST)*1.25;
   while (cur_sec_level > min_sec_level) {
     await ns.weaken(HOST);

@@ -11,17 +11,26 @@ import { compression_one } from "/contracts/compression1";
 import { stocks_2 } from "/contracts/stocks2";
 import { ceasar_cipher } from "/contracts/ceasar";
 import { grid_paths_1 } from "/contracts/grid_paths_1";
+import { subset_sum } from "/contracts/subset_sum";
+import { vingenere } from "/contracts/vigenere";
+import { ways_to_sum } from "/contracts/ways_to_sum";
+import { stolen_shortest_path } from "/contracts/shortest_path_grid";
+
 
 const SOLVABLE_CONTRACTS_MAP = {
+    'Subarray with Maximum Sum': subset_sum,
     'Compression I: RLE Compression': compression_one,
     'Compression II: LZ Decompression': compression_two,
     'Generate IP Addresses': find_valid_ip,
     'Unique Paths in a Grid I': grid_paths_1,
+    'Shortest Path in a Grid': stolen_shortest_path,
     'Algorithmic Stock Trader I': stocks_1,
     'Algorithmic Stock Trader II': stocks_2,
     'Merge Overlapping Intervals': merge_overlapping_intervals,
     'Find Largest Prime Factor': largest_prime_factor,
-    'Encryption I: Caesar Cipher': ceasar_cipher
+    'Encryption I: Caesar Cipher': ceasar_cipher,
+    'Encryption II: Vigenère Cipher': vingenere,
+    'Total Ways to Sum': ways_to_sum
 }
 
 /** @param {NS} ns */
