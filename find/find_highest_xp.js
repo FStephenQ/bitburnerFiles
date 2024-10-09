@@ -4,6 +4,11 @@ import { get_hacked } from "/common";
 
 /** @param {NS} ns */
 export async function main(ns) {
+    ns.tail();
+    await get_highest_xp(ns);
+}
+
+export async function get_highest_xp(ns){
     /** @type {Server[]} hacked */
     var hacked = await get_hacked(ns, 'home', 'home');
     var highest = 0;
@@ -24,4 +29,5 @@ export async function main(ns) {
         ns.print(`Hack time is ${ns.tFormat(hack_time)}`);
     }
     ns.print(`Highest XP is with ${host}, with ${highest} XP every ${time}`);
+    return host;
 }
