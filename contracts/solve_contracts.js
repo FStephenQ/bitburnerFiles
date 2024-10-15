@@ -18,6 +18,9 @@ import { stolen_shortest_path } from "/contracts/shortest_path_grid";
 import { triangle_min_sum } from "./triangle_min_sum";
 import { sanitize_parens } from "./sanitize_parens";
 import { array_jumping_game_2 } from "./array_jumping_game_2";
+import { array_jumping_game } from "./array_jumping_game";
+import { hamming_integer_to_binary } from "./hamming_int_to_binary"
+import { find_valid_expressions } from "./find_valid_expressions";
 
 const SOLVABLE_CONTRACTS_MAP = {
     'Subarray with Maximum Sum': subset_sum,
@@ -35,7 +38,11 @@ const SOLVABLE_CONTRACTS_MAP = {
     'Total Ways to Sum': ways_to_sum,
     'Minimum Path Sum in a Triangle': triangle_min_sum,
     'Sanitize Parentheses in Expression': sanitize_parens,
-    'Array Jumping Game II': array_jumping_game_2
+    'Array Jumping Game II': array_jumping_game_2,
+    'Array Jumping Game': array_jumping_game,
+
+    //'HammingCodes: Integer to Encoded Binary': hamming_integer_to_binary
+    'Find All Valid Math Expressions': find_valid_expressions
 }
 
 /** @param {NS} ns */
