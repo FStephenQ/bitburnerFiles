@@ -21,6 +21,7 @@ import { array_jumping_game_2 } from "./array_jumping_game_2";
 import { array_jumping_game } from "./array_jumping_game";
 import { hamming_integer_to_binary } from "./hamming_int_to_binary"
 import { find_valid_expressions } from "./find_valid_expressions";
+import { ways_to_sum_2 } from "./ways_to_sum_2";
 
 const SOLVABLE_CONTRACTS_MAP = {
     'Subarray with Maximum Sum': subset_sum,
@@ -40,6 +41,7 @@ const SOLVABLE_CONTRACTS_MAP = {
     'Sanitize Parentheses in Expression': sanitize_parens,
     'Array Jumping Game II': array_jumping_game_2,
     'Array Jumping Game': array_jumping_game,
+    'Total Ways to Sum II': ways_to_sum_2,
 
     //'HammingCodes: Integer to Encoded Binary': hamming_integer_to_binary
     'Find All Valid Math Expressions': find_valid_expressions

@@ -10,11 +10,13 @@ You are also given a target number of 41. Return all possible ways you can add t
  (Normal order of operations applies.)
 
 The provided answer should be an array of strings containing the valid expressions. 
-The data provided by this problem is an array with two elements. The first element is the string of digits, while the second element is the target number:
+The data provided by this problem is an array with two elements. 
+The first element is the string of digits, while the second element is the target number:
 
 ["48098819378", 41]
 
-NOTE: The order of evaluation expects script operator precedence NOTE: Numbers in the expression cannot have leading 0's. In other words, "1+01" is not a valid expression Examples:
+NOTE: The order of evaluation expects script operator precedence 
+NOTE: Numbers in the expression cannot have leading 0's. In other words, "1+01" is not a valid expression Examples:
 
 Input: digits = "123", target = 6
 Output: ["1+2+3", "1*2*3"]
@@ -31,44 +33,43 @@ export function main(ns) {
 }
 
 export function find_valid_expressions(ns, s) {
-    var digs = s[0].split('');
-    ns.print(s);
-    ns.print(digs);
-    var target = s[1]
+    var digits = s[0];
+    var target = parseInt(s[1]);
+    return findValidExpressions(digits, target);
+}
 
-    var recurse = function (index, expr){
-        if(index >= expr.length){
-            var result = 0;
-            ns.print(expr.join(''));
-            result = Function(`'use strict'; return (${expr.join('')})`)()
-            ns.print(result);
-            if (result == target){
-                return [result];
+function findValidExpressions(digits, target) {
+    const result = [];
+    
+    function dfs(index, path, value, lastOperand, lastOperator) {
+        if (index === digits.length) {
+            if (value === target) {
+                result.push(path);
             }
-            return [];
+            return;
         }
-
-        for(var i = index; i < expr.length; i++){
-            var before = expr.slice(0,i).join('');
-            var after = expr.slice(i).join('');
-            if (after[0] == '0'){
-                continue
-            }
-            else{
-                var multiplication = before + "*" + after;
-                var addition = before + "+" + after;
-                var subtraction = before + "-"+ after;
-                var ret = []
-                ret.concat(recurse(i + 2, multiplication.split('')));
-                ret.concat(recurse(i + 2, addition.split('')));
-                ret.concat(recurse(i + 2, subtraction.split('')));
+        
+        let currentOperand = 0;
+        for (let i = index; i < digits.length; i++) {
+            if (i !== index && digits[index] === '0') break;
+            currentOperand = currentOperand * 10 + parseInt(digits[i]);
+            
+            if (index === 0) {
+                dfs(i + 1, path + currentOperand, currentOperand, currentOperand, '+');
+            } else {
+                dfs(i + 1, path + '+' + currentOperand, value + currentOperand, currentOperand, '+');
+                dfs(i + 1, path + '-' + currentOperand, value - currentOperand, currentOperand, '-');
+                dfs(i + 1, path + '*' + currentOperand, 
+                    lastOperator === '+' ? value - lastOperand + (lastOperand * currentOperand) :
+                    lastOperator === '-' ? value + lastOperand - (lastOperand * currentOperand) :
+                    value * currentOperand,
+                    lastOperand * currentOperand,
+                    lastOperator
+                );
             }
         }
-        return ret;
     }
-    var answer = recurse(1, digs);
-    if(answer == []){
-        return '';
-    }
-    return answer;
+    
+    dfs(0, '', 0, 0, '+');
+    return result;
 }
