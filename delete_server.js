@@ -2,5 +2,5 @@
 
 /** @param {NS} ns */
 export async function main(ns) {
-    ns.deleteServer(ns.args[0]);
+    ns.cloud.deleteServer(ns.args[0]);
 }
