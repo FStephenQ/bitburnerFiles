@@ -7,7 +7,7 @@ export async function main(ns) {
   ns.clearLog();
   var contracts =  await find_contracts(ns, 'home', 'home','');
   ns.print("Contracts found: \n"+ contracts.map((a) => {return a.str;}).join('\n'));
-  ns.tail();
+  ns.ui.openTail();
 }
 
 /** @param {NS} ns */

@@ -18,7 +18,7 @@ Examples:
 export async function main(ns) {
   var input = 'ggg33FFyyGGGGGGGGGKeFPPzzhLLLLLLLLLOOhVV8888FzkMMkpbbppppppp';
   var output = compression_one(ns, input);
-  ns.tail();
+  ns.ui.openTail();
   ns.print(output);
 }
 

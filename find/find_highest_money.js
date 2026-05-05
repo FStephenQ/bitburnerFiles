@@ -2,7 +2,7 @@
 
 /** @param {NS} ns */
 export async function main(ns) {
-  ns.tail();
+  ns.ui.openTail();
   var result = await get_money(ns, 'home', 'home');
   ns.clearLog();
   ns.print(result);

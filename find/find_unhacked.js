@@ -9,7 +9,7 @@ export async function main(ns) {
   ns.disableLog('hasRootAccess');
   ns.disableLog('getServerNumPortsRequired')
   ns.clearLog();
-  ns.tail();
+  ns.ui.openTail();
   await descend(ns, 'home', 'home');
 }
 

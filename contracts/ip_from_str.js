@@ -17,7 +17,7 @@ export async function main(ns) {
 }
 
 export function find_valid_ip(ns, input){
-  ns.tail();
+  ns.ui.openTail();
   ns.print(input.length);
   var ret = [];
   for(var i = 1; i < 4; i++){

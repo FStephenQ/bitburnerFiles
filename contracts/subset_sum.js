@@ -1,7 +1,7 @@
 /** @param {NS} ns */
 export async function main(ns) {
   const input = [-3,0,-1,-9,-4,6,-4,4,-7,-3,7,-3,2,-3,10,-4,5,6,0,-5];
-  ns.tail()
+  ns.ui.openTail()
   ns.print("Sum: "+highest_sum);
   ns.print("Subset: "+highest_subset);
 }

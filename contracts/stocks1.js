@@ -12,7 +12,7 @@ be made then the answer should be 0. Note that you have to buy the stock before 
 export async function main(ns) {
   var input = [184,60,36,65,93,54,159,191,20,149,73,142,88,182,111,134,87,150,13,75,162,145];
   var max_profit = stocks_1(ns, input);
-  ns.tail();
+  ns.ui.openTail();
   ns.print(max_profit);
 }
 

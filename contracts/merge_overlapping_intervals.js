@@ -17,7 +17,7 @@ The intervals must be returned in ASCENDING order.
 /** @param {NS} ns */
 export async function main(ns) {
   var input = [[9,11],[23,31],[10,13],[20,27]];
-  ns.tail();
+  ns.ui.openTail();
   ns.print(merge_overlapping_intervals(ns, input));
 }
 

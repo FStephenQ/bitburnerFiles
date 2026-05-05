@@ -5,7 +5,7 @@ export async function main(ns) {
   var key = 24;
   var ciphertext = ceasar_cipher(ns, [plaintext, key])
   ns.print("CText: "+ciphertext);
-  ns.tail();
+  ns.ui.openTail();
 }
 
 export function ceasar_cipher(ns, input){

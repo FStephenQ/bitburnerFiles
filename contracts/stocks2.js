@@ -3,8 +3,8 @@ export async function main(ns) {
   var arr = [134,159,63,154,66,44,4,79,109,91,29,13,19,146,39,119,134,24,190,105];
   var last = 1;
   var previous_price = 91;
-  
-  ns.tail()
+
+  ns.ui.openTail()
   ns.print(profit);
 }
 

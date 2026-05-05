@@ -4,7 +4,7 @@ import { get_hacked } from "/common";
 
 /** @param {NS} ns */
 export async function main(ns) {
-    ns.tail();
+    ns.ui.openTail();
     await get_highest_xp(ns);
 }
 
@@ -14,7 +14,7 @@ export async function get_highest_xp(ns){
     var highest = 0;
     var host = '';
     var time = 0;
-    ns.tail();
+    ns.ui.openTail();
     var available_threads = ns.getServerMaxRam('home')/ns.getScriptRam('just_hack.js');
     for(var h of hacked){
         var h_xp = ns.formulas.hacking.hackExp(h, ns.getPlayer());

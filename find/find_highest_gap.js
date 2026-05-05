@@ -6,7 +6,7 @@ function contains(array, string){
 }
 const BLACKLIST = ["omega-net"]
 export async function main(ns) {
-  ns.tail();
+  ns.ui.openTail();
   var result = await get_money(ns, 'home', 'home');
   ns.print(result);
 }

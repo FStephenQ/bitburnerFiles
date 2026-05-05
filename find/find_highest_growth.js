@@ -2,7 +2,7 @@
 
 /** @param {NS} ns */
 export async function main(ns) {
-  ns.tail();
+  ns.ui.openTail();
   var result = await get_money(ns, 'home', 'home');
   ns.clearLog();
   ns.print(`Highest growth value server is ${result.highest_growth_name}, with a value of ${ns.format.number(result.highest_growth_value)}`);
