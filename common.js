@@ -2,7 +2,7 @@ export async function get_hacked(ns, host, origin) {
   var hacked = [];
   var local = await ns.scan(host);
   for (var h of local) {
-    if (h == origin ||contains(ns.getPurchasedServers(), h)) {
+    if (h == origin ||contains(ns.cloud.getServerNames(), h)) {
       continue;
     }
     if (ns.hasRootAccess(h) == true) {

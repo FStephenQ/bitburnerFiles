@@ -13,7 +13,7 @@ export async function main(ns) {
   };
   var available_scripts = ns.ls("home", "exe").filter((a) => { return contains(Object.keys(HACK_FUNCTION_MAP), a); });
   var hack_level = available_scripts.length;
-  var servers = ns.getPurchasedServers();
+  var servers = ns.cloud.getServerNames();
   var descend = function (ns, host, origin) {
     var local = ns.scan(host);
     for (var h of local) {

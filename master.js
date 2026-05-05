@@ -27,20 +27,20 @@ export async function main(ns) {
                 ns.exec('fill_all.js', 'home', 1, 'generic.js', hacked[0].hostname);
                 ns.exec('target_all.js', 'home', 1, hacked[0].hostname);
             }
-            if (ns.getPurchasedServers().length >= ns.getPurchasedServerLimit() - 2) {
+            if (ns.cloud.getServerNames().length >= ns.cloud.getServerLimit() - 2) {
                 wout(ns, "Too many servers. Deleting");
                 ns.getScriptExpGain()
-                for (var del of hacked.slice(ns.getPurchasedServerLimit() - 3)) {
-                    if (contains(ns.getPurchasedServers(), `generic-${del.hostname}`)) {
+                for (var del of hacked.slice(ns.cloud.getServerLimit() - 3)) {
+                    if (contains(ns.cloud.getServerNames(), `generic-${del.hostname}`)) {
                         wout(ns, "Deleting generic-" + del.hostname);
                         await ns.killall(`generic-${del.hostname}`);
-                        ns.deleteServer(`generic-${del.hostname}`);
+                        ns.cloud.deleteServer(`generic-${del.hostname}`);
                     }
                 }
             }
-            if (hacked.length >= ns.getPurchasedServerLimit() - 2) {
-                wout(ns, `Too many hacked servers; getting top ${ns.getPurchasedServerLimit()-2}`);
-                hacked = hacked.slice(0, ns.getPurchasedServerLimit() - 2);
+            if (hacked.length >= ns.cloud.getServerLimit() - 2) {
+                wout(ns, `Too many hacked servers; getting top ${ns.cloud.getServerLimit()-2}`);
+                hacked = hacked.slice(0, ns.cloud.getServerLimit() - 2);
             }
             for (var serv of hacked) {
                 await buy_kill_server(ns, serv);
@@ -57,7 +57,7 @@ export async function main(ns) {
 async function buy_kill_server(ns, server) {
     wout(ns, `Working on kill server for ${server.hostname}, with max money ${ns.format.number(server.moneyMax)}`);
     var attack_host = `generic-${server.hostname}`;
-    if (contains(ns.getPurchasedServers(), attack_host)) {
+    if (contains(ns.cloud.getServerNames(), attack_host)) {
         wout(ns, `Kill server for ${server.hostname} already purchased, skipping`);
         return;
     }
@@ -84,13 +84,13 @@ async function buy_kill_server(ns, server) {
         wout(ns, "Required server is too big, skipping");
         return;
     }
-    const cost = ns.getPurchasedServerCost(ram);
+    const cost = ns.cloud.getServerCost(ram);
     wout(ns, `Server would cost ${ns.format.number(cost)}`);
     if (cost > ns.getServerMoneyAvailable("home")) {
         wout(ns, "Server costs too much, skipping");
         return;
     }
-    ns.purchaseServer(attack_host, ram);
+    ns.cloud.purchaseServer(attack_host, ram);
     wout(ns, "Server purchased, setting up killscripts");
     ns.scp(["fill_all.js", "generic.js"], attack_host);
     ns.exec("fill_all.js", attack_host, 1, "generic.js", server.hostname);

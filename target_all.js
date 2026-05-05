@@ -10,7 +10,7 @@ export async function main(ns) {
   var hacked = await get_hacked(ns, "home", "home");
   var total_ram_deployed = 0;
   for(var host of hacked){
-    if(host.hostname == "home" || contains(ns.getPurchasedServers(), host.hostname) || !host.hasAdminRights){
+    if(host.hostname == "home" || contains(ns.cloud.getServerNames(), host.hostname) || !host.hasAdminRights){
       continue;
     }
     if(host.maxRam >= ns.getScriptRam('generic.js', 'home')){

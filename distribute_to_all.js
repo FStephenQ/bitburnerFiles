@@ -20,7 +20,7 @@ export async function main(ns) {
   if(grow_threads_left > 0){
     ns.tprint(`Only enough RAM to partially grow; ${grow_threads_left} out of ${threads_necessary.growThreads} threads left`);
   }
-  var weaken_pool = hacked.concat(ns.getPurchasedServers().filter((a) => {return a.indexOf('weaken') >= 0;}).map(ns.getServer));
+  var weaken_pool = hacked.concat(ns.cloud.getServerNames().filter((a) => {return a.indexOf('weaken') >= 0;}).map(ns.getServer));
   var weaken_threads_left = threads_necessary.weakenThreads - assign_task_to_servers(ns, weaken_pool, threads_necessary.weakenThreads, 'just_weaken.js', target);
   if(weaken_threads_left > 0){
     ns.tprint(`Only enough RAM to partially weaken; ${weaken_threads_left} out of ${threads_necessary.weakenThreads} threads left`);
