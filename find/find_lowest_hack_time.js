@@ -32,7 +32,7 @@ async function descend(ns, host, origin) {
     if (h == origin) continue;
     var tmp = await descend(ns, h, host);
     //ns.print(tmp);
-    var reqLevel = Infinity, numPorts = 5;
+    var reqLevel = Infinity, numPorts = Infinity;
     try { reqLevel = ns.getServerRequiredHackingLevel(h); numPorts = ns.getServerNumPortsRequired(h); } catch { /* non-hackable */ }
     if (ns.hasRootAccess(h) && reqLevel <= ns.getHackingLevel()
       && numPorts < 5) {
