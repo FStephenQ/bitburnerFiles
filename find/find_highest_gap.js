@@ -12,8 +12,14 @@ export async function main(ns) {
 }
 
 async function get_money(ns, host, origin) {
-  var local_money = (host == origin || contains(BLACKLIST, host)) ? 0: (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
-  var local_richest = (host == origin || contains(BLACKLIST, host)) ? '': host;
+  var local_money = 0;
+  var local_richest = '';
+  if (host != origin && !contains(BLACKLIST, host)) {
+    try {
+      local_money = (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
+      local_richest = host;
+    } catch { /* non-hackable server, skip */ }
+  }
   ns.print(host);
   ns.print(local_richest);
   var local = ns.scan(host);
@@ -22,7 +28,9 @@ async function get_money(ns, host, origin) {
     var result = await get_money(ns, h, host);
     var cash = result.local_highest_money;
     var richest = result.local_highest_name;
-    if (cash > local_money && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()) {
+    var hackLevel = Infinity;
+    try { hackLevel = ns.getServerRequiredHackingLevel(h); } catch { /* non-hackable */ }
+    if (cash > local_money && hackLevel <= ns.getHackingLevel()) {
       local_money = cash;
       local_richest = richest;
     }

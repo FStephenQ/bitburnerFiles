@@ -13,8 +13,14 @@ export async function main(ns) {
 }
 
 async function get_money(ns, host, origin) {
-  var local_growth = (host == origin) ? 0: (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
-  var local_highest_growth = (host == origin) ? '': host;
+  var local_growth = 0;
+  var local_highest_growth = '';
+  if (host != origin) {
+    try {
+      local_growth = (100/ns.getServerGrowth(host))*ns.getServerMaxMoney(host);
+      local_highest_growth = host;
+    } catch { /* non-hackable server, skip */ }
+  }
   var local = ns.scan(host);
   for (var h of local) {
     if (h == origin) continue;

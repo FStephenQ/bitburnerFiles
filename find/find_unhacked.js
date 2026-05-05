@@ -18,10 +18,12 @@ async function descend(ns, host, origin) {
   for (var h of local) {
     if (h == origin) continue;
     await descend(ns, h, host);
-    if (!ns.hasRootAccess(h) && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()
-        && ns.getServerNumPortsRequired(h) < 5) {
-      ns.print("Unhacked server: "+h);
-      ns.print("Ports needed: "+ns.getServerNumPortsRequired(h))
-    }
+    try {
+      if (!ns.hasRootAccess(h) && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()
+          && ns.getServerNumPortsRequired(h) < 5) {
+        ns.print("Unhacked server: "+h);
+        ns.print("Ports needed: "+ns.getServerNumPortsRequired(h))
+      }
+    } catch { /* non-hackable server, skip */ }
   }
 }

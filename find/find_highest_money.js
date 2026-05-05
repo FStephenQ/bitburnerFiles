@@ -10,8 +10,14 @@ export async function main(ns) {
 
 /** @param {NS} ns */
 async function get_money(ns, host, origin) {
-  var local_money = host == origin ? 0: ns.getServerMoneyAvailable(host);
-  var local_richest = host == origin ? '': host;
+  var local_money = 0;
+  var local_richest = '';
+  if (host != origin) {
+    try {
+      local_money = ns.getServerMoneyAvailable(host);
+      local_richest = host;
+    } catch { /* non-hackable server, skip */ }
+  }
   var local = ns.scan(host);
   for (var h of local) {
     if (h == origin) continue;

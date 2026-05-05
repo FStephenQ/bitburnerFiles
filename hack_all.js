@@ -21,10 +21,12 @@ export async function main(ns) {
         continue;
       }
       if (ns.hasRootAccess(h) == false) {
-        if (ns.getServerNumPortsRequired(h) <= hack_level && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()) {
-          available_scripts.forEach((a) => { HACK_FUNCTION_MAP[a](h); })
-          ns.nuke(h);
-        }
+        try {
+          if (ns.getServerNumPortsRequired(h) <= hack_level && ns.getServerRequiredHackingLevel(h) <= ns.getHackingLevel()) {
+            available_scripts.forEach((a) => { HACK_FUNCTION_MAP[a](h); })
+            ns.nuke(h);
+          }
+        } catch { /* non-hackable server, skip */ }
       }
       descend(ns, h, host);
     }
