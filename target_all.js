@@ -22,5 +22,5 @@ export async function main(ns) {
       total_ram_deployed += host.maxRam;
     }
   }
-  ns.tprint(`Unleashed ${ns.formatRam(total_ram_deployed)} (${ns.formatNumber(total_ram_deployed/ns.getScriptRam('generic.js'))} threads) of RAM on ${ns.args[0]}`);
+  ns.tprint(`Unleashed ${ns.format.ram(total_ram_deployed)} (${ns.format.number(total_ram_deployed/ns.getScriptRam('generic.js'))} threads) of RAM on ${ns.args[0]}`);
 }

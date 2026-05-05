@@ -5,11 +5,11 @@ export async function main(ns) {
   ns.tail();
   var result = await get_money(ns, 'home', 'home');
   ns.clearLog();
-  ns.print(`Highest growth value server is ${result.highest_growth_name}, with a value of ${ns.formatNumber(result.highest_growth_value)}`);
-  ns.print(`This server currently has $${ns.formatNumber(ns.getServerMoneyAvailable(result.highest_growth_name))} available, and a security value of ${ns.formatNumber(ns.getServerSecurityLevel(result.highest_growth_name))}`);
-  ns.print(`Weaken time: ${ns.tFormat(ns.getWeakenTime(result.highest_growth_name))}`);
-  ns.print(`Grow time: ${ns.tFormat(ns.getGrowTime(result.highest_growth_name))}`);
-  ns.print(`Hack time: ${ns.tFormat(ns.getHackTime(result.highest_growth_name))}`);
+  ns.print(`Highest growth value server is ${result.highest_growth_name}, with a value of ${ns.format.number(result.highest_growth_value)}`);
+  ns.print(`This server currently has $${ns.format.number(ns.getServerMoneyAvailable(result.highest_growth_name))} available, and a security value of ${ns.format.number(ns.getServerSecurityLevel(result.highest_growth_name))}`);
+  ns.print(`Weaken time: ${ns.format.time(ns.getWeakenTime(result.highest_growth_name))}`);
+  ns.print(`Grow time: ${ns.format.time(ns.getGrowTime(result.highest_growth_name))}`);
+  ns.print(`Hack time: ${ns.format.time(ns.getHackTime(result.highest_growth_name))}`);
 }
 
 async function get_money(ns, host, origin) {

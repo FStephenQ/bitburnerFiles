@@ -26,7 +26,7 @@ export async function get_highest_xp(ns){
             host = h.hostname;
             time = hack_time;
         }
-        ns.print(`Hack time is ${ns.tFormat(hack_time)}`);
+        ns.print(`Hack time is ${ns.format.time(hack_time)}`);
     }
     ns.print(`Highest XP is with ${host}, with ${highest} XP every ${time}`);
     return host;

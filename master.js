@@ -55,7 +55,7 @@ export async function main(ns) {
 
 /** @param {NS} ns, @param {Server} server*/
 async function buy_kill_server(ns, server) {
-    wout(ns, `Working on kill server for ${server.hostname}, with max money ${ns.formatNumber(server.moneyMax)}`);
+    wout(ns, `Working on kill server for ${server.hostname}, with max money ${ns.format.number(server.moneyMax)}`);
     var attack_host = `generic-${server.hostname}`;
     if (contains(ns.getPurchasedServers(), attack_host)) {
         wout(ns, `Kill server for ${server.hostname} already purchased, skipping`);
@@ -71,7 +71,7 @@ async function buy_kill_server(ns, server) {
     }
     var cost_to_hit = Math.ceil(ns.growthAnalyze(server.hostname, diff));
     var threads = Math.ceil(ns.getScriptRam("generic.js") * cost_to_hit);
-    wout(ns, `It would take ${cost_to_hit} invocations to reach that max, or ${ns.formatRam(threads)} worth of RAM`);
+    wout(ns, `It would take ${cost_to_hit} invocations to reach that max, or ${ns.format.ram(threads)} worth of RAM`);
     wout(
         ns,
         `That would create a security increase of ${ns.growthAnalyzeSecurity(cost_to_hit)}, which would take ${
@@ -85,7 +85,7 @@ async function buy_kill_server(ns, server) {
         return;
     }
     const cost = ns.getPurchasedServerCost(ram);
-    wout(ns, `Server would cost ${ns.formatNumber(cost)}`);
+    wout(ns, `Server would cost ${ns.format.number(cost)}`);
     if (cost > ns.getServerMoneyAvailable("home")) {
         wout(ns, "Server costs too much, skipping");
         return;
