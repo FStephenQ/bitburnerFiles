@@ -1,6 +1,5 @@
 /// <reference path="NetscriptDefinitions.d.ts"/>
 
-import {contains} from 'common.js';
 
 /** @param {NS} ns */
 export async function main(ns) {
@@ -11,13 +10,13 @@ export async function main(ns) {
     'HTTPWorm.exe': ns.httpworm,
     'SQLInject.exe': ns.sqlinject
   };
-  var available_scripts = ns.ls("home", "exe").filter((a) => { return contains(Object.keys(HACK_FUNCTION_MAP), a); });
+  var available_scripts = ns.ls("home", "exe").filter((a) => Object.keys(HACK_FUNCTION_MAP).includes(a));
   var hack_level = available_scripts.length;
   var servers = ns.cloud.getServerNames();
   var descend = function (ns, host, origin) {
     var local = ns.scan(host);
     for (var h of local) {
-      if (h == origin || contains(servers, h)) {
+      if (h == origin || servers.includes(h)) {
         continue;
       }
       if (ns.hasRootAccess(h) == false) {

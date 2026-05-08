@@ -1,15 +1,18 @@
 export async function get_hacked(ns, host, origin) {
-  var hacked = [];
-  var local = await ns.scan(host);
-  for (var h of local) {
-    if (h == origin ||contains(ns.cloud.getServerNames(), h)) {
-      continue;
+  const hacked = [];
+  const purchased = new Set(ns.cloud.getServerNames());
+  const visited = new Set([origin]);
+
+  async function descend(h) {
+    for (const neighbor of ns.scan(h)) {
+      if (visited.has(neighbor) || purchased.has(neighbor)) continue;
+      visited.add(neighbor);
+      if (ns.hasRootAccess(neighbor)) hacked.push(ns.getServer(neighbor));
+      await descend(neighbor);
     }
-    if (ns.hasRootAccess(h) == true) {
-      hacked = [ns.getServer(h)].concat(hacked);
-    }
-    hacked = hacked.concat(await get_hacked(ns, h, host));
   }
+
+  await descend(host);
   return hacked;
 }
 
@@ -21,11 +24,5 @@ export function get_hack_level(ns) {
     "HTTPWorm.exe",
     "SQLInject.exe",
   ];
-  return ns.ls("home", "exe").filter((a) => {
-    return contains(HACK_FUNCTION_LIST, a);
-  }).length;
-}
-
-export function contains(array, string) {
-  return array.indexOf(string) > -1;
+  return ns.ls("home", "exe").filter((a) => HACK_FUNCTION_LIST.includes(a)).length;
 }

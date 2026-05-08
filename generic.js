@@ -2,9 +2,6 @@
 
 export async function main(ns) {
   const HOST = ns.args[0] ?? ns.getHostname();
-  var HACK_TIME = ns.getHackTime(HOST);
-  var WEAKEN_TIME = ns.getWeakenTime(HOST);
-  var GROW_TIME = ns.getGrowTime(HOST);
   await reduce_security_level(ns, HOST);
   while (true) {
     await grow_money(ns, HOST);
@@ -23,19 +20,19 @@ async function hack_away(ns, HOST){
         return;
       }
     };
+    money_available = ns.getServerMoneyAvailable(HOST);
   }
 }
 
 /** @param {NS} ns */
 async function reduce_security_level(ns, HOST){
+  const min_sec_level = ns.getServerMinSecurityLevel(HOST) * 1.25;
   var cur_sec_level = ns.getServerSecurityLevel(HOST);
-  if(cur_sec_level < 100) return;
-  const min_sec_level = ns.getServerMinSecurityLevel(HOST)*1.25;
+  if(cur_sec_level <= min_sec_level) return;
   while (cur_sec_level > min_sec_level) {
     await ns.weaken(HOST);
     cur_sec_level = ns.getServerSecurityLevel(HOST);
   }
-  return;
 }
 
 /** @param {NS} ns */

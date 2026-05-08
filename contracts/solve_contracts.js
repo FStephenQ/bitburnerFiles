@@ -1,6 +1,5 @@
 /// <reference path="../NetscriptDefinitions.d.ts"/>
 
-import { contains } from "/common.js";
 import { find_contracts } from "/find/find_contracts.js";
 import { compression_two } from "/contracts/compression2.js";
 import { find_valid_ip } from "/contracts/ip_from_str";
@@ -22,6 +21,10 @@ import { array_jumping_game } from "./array_jumping_game";
 import { hamming_integer_to_binary } from "./hamming_int_to_binary"
 import { find_valid_expressions } from "./find_valid_expressions";
 import { ways_to_sum_2 } from "./ways_to_sum_2";
+import { spiralize_matrix } from "./spiralize_matrix";
+import { largest_rectangle } from "./largest_rectangle";
+import { two_coloring } from "./two_coloring";
+import { count_primes } from "./count_primes";
 
 const SOLVABLE_CONTRACTS_MAP = {
     'Subarray with Maximum Sum': subset_sum,
@@ -42,9 +45,13 @@ const SOLVABLE_CONTRACTS_MAP = {
     'Array Jumping Game II': array_jumping_game_2,
     'Array Jumping Game': array_jumping_game,
     'Total Ways to Sum II': ways_to_sum_2,
+    'Spiralize Matrix': spiralize_matrix,
 
     //'HammingCodes: Integer to Encoded Binary': hamming_integer_to_binary
-    'Find All Valid Math Expressions': find_valid_expressions
+    'Find All Valid Math Expressions': find_valid_expressions,
+    'Largest Rectangle in a Matrix': largest_rectangle,
+    'Proper 2-Coloring of a Graph': two_coloring,
+    'Total Number of Primes': count_primes,
 }
 
 /** @param {NS} ns */
@@ -57,7 +64,7 @@ export async function main(ns) {
     var solved = 0;
     ns.tprint(`Attempting to solve ${contracts.length} contracts`);
     for (var contract of contracts) {
-        if (contains(Object.keys(SOLVABLE_CONTRACTS_MAP), contract.type)) {
+        if (Object.keys(SOLVABLE_CONTRACTS_MAP).includes(contract.type)) {
             var data = ns.codingcontract.getData(contract.filename, contract.hostname);
             var result = ns.codingcontract.attempt(SOLVABLE_CONTRACTS_MAP[contract.type](ns, data), contract.filename, contract.hostname);
             if (result != '') {

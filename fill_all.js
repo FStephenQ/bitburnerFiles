@@ -7,6 +7,6 @@ export async function main(ns) {
   var num_threads = Math.floor(max_ram/weaken_ram);
   if(num_threads > 0) ns.spawn(ns.args[0], parseInt(num_threads), ns.args[1]);
   else{
-    ns.print(`Unable to start ${ns.args[1]} on ${ns.args[0]} due to insufficient ram`)
+    ns.print(`Unable to start ${ns.args[0]} on ${ns.args[1]} due to insufficient ram`)
   }
 }

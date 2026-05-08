@@ -1,6 +1,6 @@
 /// <reference path="NetscriptDefinitions.d.ts"/>
 
-import { contains, get_hacked } from "/common";
+import { get_hacked } from "/common";
 
 /** @param {NS} ns */
 export async function main(ns) {
@@ -55,7 +55,7 @@ function assign_task_to_servers(ns, servers, num_threads, script_name, target){
 
 /** @param {NS} ns, @param {Server} server */
 function assign_task(ns, server, script_name, target){
-  var threads = (ns.getServerMaxRam(server.hostname) - ns.getServerUsedRam()) / ns.getScriptRam(script_name);
+  var threads = (ns.getServerMaxRam(server.hostname) - ns.getServerUsedRam(server.hostname)) / ns.getScriptRam(script_name);
   if(threads > 0 && ns.exec(script_name, server.hostname, threads, target) != 0) return threads;
   return 0;
 }

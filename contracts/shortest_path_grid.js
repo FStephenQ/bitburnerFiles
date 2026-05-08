@@ -33,7 +33,6 @@ Answer: 'DRRURRD'
 
 Answer: ''
 */
-import { contains } from "/common";
 
 
 /*
@@ -149,7 +148,7 @@ function shortest_path_grid(ns, input){
     for(var v = 1; v < length; v++){
         var tmp = [];
         for(var s of strings){
-            if(contains(tried, s)) continue;
+            if(tried.includes(s)) continue;
             var start = get_node(s);
             for(var m of Object.keys(moves).filter((a) => {return a != s[s.length-1]})){
                 if(is_valid_move(ns, start, moves[m](start), input)){
